@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -75,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"This feature still in development",
-                        Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, Profile.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
@@ -135,32 +137,57 @@ public class MainActivity extends AppCompatActivity {
 
                     }else if("New".equalsIgnoreCase(response)){
 
-                        curTime = sdf.format(currTime.getTime());
+                        try {
+                            if (Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME) == 0) {
 
-                        //add shared preference ID,nama,credit here
-                        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME,
-                                Context.MODE_PRIVATE);
+                                Toast.makeText(getApplicationContext(),
+                                        "Please set Automatic Date & Time to ON in the Settings",
+                                        Toast.LENGTH_LONG).show();
 
-                        // Creating editor to store values to shared preferences
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                startActivityForResult(
+                                        new Intent(Settings.ACTION_DATE_SETTINGS), 0);
+                            } else if (Settings.Global.getInt(getContentResolver(),
+                                    Settings.Global.AUTO_TIME_ZONE) == 0) {
 
-                        // Adding values to editor
-                        editor.putString(Config.PLACE_ID, scanID);
-                        editor.putString(Config.SCAN_DATE, currentDate);
-                        editor.putString(Config.SCAN_TIME, curTime);
-                        editor.putString(Config.LOG_STATUS, "New");
+                                Toast.makeText(getApplicationContext(),
+                                        "Please set Automatic Time Zone to ON in the Settings",
+                                        Toast.LENGTH_LONG).show();
 
-                        // Saving values to editor
-                        editor.commit();
+                                startActivityForResult(
+                                        new Intent(Settings.ACTION_DATE_SETTINGS), 0);
+                            }else {
 
-                        loading.dismiss();
+                                curTime = sdf.format(currTime.getTime());
 
-                        //Starting profile activity
-                        Intent intent = new Intent(MainActivity.this, UserLocationDetails.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
+                                //add shared preference ID,nama,credit here
+                                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME,
+                                        Context.MODE_PRIVATE);
 
-                    } else {
+                                // Creating editor to store values to shared preferences
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                // Adding values to editor
+                                editor.putString(Config.PLACE_ID, scanID);
+                                editor.putString(Config.SCAN_DATE, currentDate);
+                                editor.putString(Config.SCAN_TIME, curTime);
+                                editor.putString(Config.LOG_STATUS, "New");
+                                editor.putString(Config.LOG_ID2, "New Entry");
+                                editor.putString(Config.EXIT_DATE, "");
+                                editor.putString(Config.EXIT_TIME, "");
+
+                                // Saving values to editor
+                                editor.commit();
+
+                                loading.dismiss();
+
+                                //Starting profile activity
+                                Intent intent = new Intent(MainActivity.this, UserLocationDetails.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                    } catch (Settings.SettingNotFoundException e) {
+                            e.printStackTrace();}
+                        } else {
 
                         try {
                             //converting the string to json array object

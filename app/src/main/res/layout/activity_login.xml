@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
@@ -74,6 +75,12 @@
             android:textColor="#5e6266"
             android:textColorHint="#5e6266"></EditText>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true">
+
         <EditText
             android:id="@+id/password"
             android:layout_width="fill_parent"
@@ -86,6 +93,7 @@
             android:singleLine="true"
             android:textColor="#5e6266"
             android:textColorHint="#5e6266" />
+        </com.google.android.material.textfield.TextInputLayout>
         <!-- Login Button -->
 
         <Button

@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +30,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class UserLocationDetails extends AppCompatActivity {
@@ -37,11 +42,19 @@ public class UserLocationDetails extends AppCompatActivity {
     String userID,name,phone,email,logid,enterDate,enterTime,exitDate,exitTime,logStatus,placeID,placeName,placePhone,placeAddress;
     TextView nametxt,phonetxt,emailtxt,logidtxt,enterdatetime,exitdatetime,logstatustxt,placenametxt,placephonetxt,placeaddresstxt;
     Button enter,exit;
+    String curTime;
+    SimpleDateFormat sdf;
+    Calendar currTime;
+    String currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_location_details);
+
+        currTime = Calendar.getInstance();
+        sdf = new SimpleDateFormat("hh:mm:ss a");
+        currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
         nametxt = findViewById(R.id.userNametxt);
         phonetxt = findViewById(R.id.phoneNumtxt);
@@ -124,7 +137,7 @@ public class UserLocationDetails extends AppCompatActivity {
 
                                         if(response.contains("Success")){
 
-                                            Toast.makeText(UserLocationDetails.this, "Apply success. Thank you", Toast.LENGTH_LONG)
+                                            Toast.makeText(UserLocationDetails.this, "Successfully enter", Toast.LENGTH_LONG)
                                                     .show();
 
                                             Intent intent = new Intent(UserLocationDetails.this, PastVisited.class);
@@ -206,106 +219,128 @@ public class UserLocationDetails extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserLocationDetails.this);
-                alertDialogBuilder.setTitle("Confirmation");
-                alertDialogBuilder.setMessage("Do you want to leave the area?");
 
-                final Dialog dialog = new Dialog(UserLocationDetails.this);
+                try {
+                    if (Settings.Global.getInt(getContentResolver(), Settings.Global.AUTO_TIME) == 0) {
 
-                alertDialogBuilder.setPositiveButton("YES",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                dialog.setCanceledOnTouchOutside(true);
+                        Toast.makeText(getApplicationContext(),
+                                "Please set Automatic Date & Time to ON in the Settings",
+                                Toast.LENGTH_LONG).show();
 
-                                final ProgressDialog loading = ProgressDialog.show(UserLocationDetails.this,"Please Wait","Contacting Server",false,false);
+                        startActivityForResult(
+                                new Intent(Settings.ACTION_DATE_SETTINGS), 0);
+                    } else if (Settings.Global.getInt(getContentResolver(),
+                            Settings.Global.AUTO_TIME_ZONE) == 0) {
 
-                                StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                                        Config.URL_API+"exitlog.php", new Response.Listener<String>() {
+                        Toast.makeText(getApplicationContext(),
+                                "Please set Automatic Time Zone to ON in the Settings",
+                                Toast.LENGTH_LONG).show();
+
+                        startActivityForResult(
+                                new Intent(Settings.ACTION_DATE_SETTINGS), 0);
+                    }else {
+
+                        curTime = sdf.format(currTime.getTime());
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserLocationDetails.this);
+                        alertDialogBuilder.setTitle("Confirmation");
+                        alertDialogBuilder.setMessage("Do you want to leave the area?");
+
+                        final Dialog dialog = new Dialog(UserLocationDetails.this);
+
+                        alertDialogBuilder.setPositiveButton("YES",
+                                new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onResponse(String response) {
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        dialog.setCanceledOnTouchOutside(true);
 
-                                        loading.dismiss();
+                                        final ProgressDialog loading = ProgressDialog.show(UserLocationDetails.this, "Please Wait", "Contacting Server", false, false);
 
-                                        if(response.contains("Success")){
+                                        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                                                Config.URL_API + "exitlog.php", new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
 
-                                            Toast.makeText(UserLocationDetails.this, "Apply success. Thank you", Toast.LENGTH_LONG)
-                                                    .show();
+                                                loading.dismiss();
 
-                                            Intent intent = new Intent(UserLocationDetails.this, PastVisited.class);
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            startActivity(intent);
-                                            finish();
+                                                if (response.contains("Success")) {
+
+                                                    Toast.makeText(UserLocationDetails.this, "Successfully leaving. Thank you", Toast.LENGTH_LONG)
+                                                            .show();
+
+                                                    Intent intent = new Intent(UserLocationDetails.this, PastVisited.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    finish();
 
 
+                                                } else if (response.contains("Exist")) {
 
-                                        }
-                                        else if(response.contains("Exist")) {
+                                                    Toast.makeText(UserLocationDetails.this, "Sorry. You already enter the area.Please scan leave before entering again", Toast.LENGTH_LONG)
+                                                            .show();
+                                                }
+                                            }
+                                        }, new Response.ErrorListener() {
+                                            @Override
+                                            public void onErrorResponse(VolleyError error) {
+                                                loading.dismiss();
+                                                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                                                    Toast.makeText(UserLocationDetails.this, "No internet . Please check your connection",
+                                                            Toast.LENGTH_LONG).show();
+                                                } else {
 
-                                            Toast.makeText(UserLocationDetails.this, "Sorry. You already enter the area.Please scan leave before entering again", Toast.LENGTH_LONG)
-                                                    .show();
-                                        }
+                                                    Toast.makeText(UserLocationDetails.this, error.toString(), Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        }) {
+                                            @Override
+                                            protected Map<String, String> getParams() {
+                                                Map<String, String> params = new HashMap<String, String>();
+                                                params.put("logID", logid);
+                                                params.put("exitDate", currentDate);
+                                                params.put("exitTime", curTime);
+                                                return params;
+                                            }
+
+                                        };
+
+                                        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                                                30000,
+                                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                                        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                                        requestQueue.add(stringRequest);
+
                                     }
-                                }, new Response.ErrorListener() {
+
+                                });
+
+                        alertDialogBuilder.setNegativeButton("NO",
+                                new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        loading.dismiss();
-                                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                                            Toast.makeText(UserLocationDetails.this,"No internet . Please check your connection",
-                                                    Toast.LENGTH_LONG).show();
-                                        }
-                                        else{
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        dialog.setCanceledOnTouchOutside(true);
 
-                                            Toast.makeText(UserLocationDetails.this, error.toString(), Toast.LENGTH_LONG).show();
-                                        }
                                     }
-                                }) {
+                                });
+                        alertDialogBuilder.setOnCancelListener(
+                                new DialogInterface.OnCancelListener() {
                                     @Override
-                                    protected Map<String, String> getParams() {
-                                        Map<String, String> params = new HashMap<String, String>();
-                                        params.put("logID",logid);
-                                        params.put("exitDate", enterDate);
-                                        params.put("exitTime", exitTime);
-                                        return params;
+                                    public void onCancel(DialogInterface dialog) {
+
                                     }
+                                }
+                        );
 
-                                };
-
-                                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                                        30000,
-                                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                                requestQueue.add(stringRequest);
-
-                            }
-
-                        });
-
-                alertDialogBuilder.setNegativeButton("NO",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                dialog.setCanceledOnTouchOutside(true);
-
-                            }
-                        });
-                alertDialogBuilder.setOnCancelListener(
-                        new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-
-                            }
-                        }
-                );
-
-                //Showing the alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-            }
-        });
+                        //Showing the alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+            } catch (Settings.SettingNotFoundException e) {
+                    e.printStackTrace();
+                }}
+            });
     }
 
 
