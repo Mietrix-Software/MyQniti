@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -267,6 +268,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -304,5 +306,13 @@ public class LoginActivity extends AppCompatActivity {
         wm.getDefaultDisplay().getMetrics(metrics);
         metrics.scaledDensity = configuration.fontScale * metrics.density;
         getBaseContext().getResources().updateConfiguration(configuration, metrics);
+    }
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
     }
 }

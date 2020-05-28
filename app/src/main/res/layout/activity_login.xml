@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@mipmap/loginbg">
+    android:background="@mipmap/bg1">
     <!-- <GridLayout
         android:layout_width="235dp"
         android:layout_height="97dp"
@@ -101,7 +101,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:background="@drawable/buttoncornerredgrad2"
+            android:background="@drawable/buttoncornerbluegrad"
             android:text="SIGN IN"
             android:textColor="#ffff" />
 
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:textStyle="bold"
-            android:textColor="#b30000"
+            android:textColor="#3F51B5"
             android:text="Not register yet? Click Here" />
 
         <!-- Link to Login Screen -->

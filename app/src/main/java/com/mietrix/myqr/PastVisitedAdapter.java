@@ -1,7 +1,6 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,13 +41,17 @@ public class PastVisitedAdapter extends RecyclerView.Adapter<PastVisitedAdapter.
         Log log = logList.get(position);
 
 
-        holder.enterDate.setText(log.getEnterDate()+" "+log.getEnterTime()); //getName
+         //getName
         holder.placeName.setText(log.getPlaceName()); //GetICnum
         holder.logStatus.setText(log.getLogStatus());
 
         if("Inside".equalsIgnoreCase(log.getLogStatus())){
-
+            holder.enterDate.setText("Enter On "+log.getEnterDate()+" "+log.getEnterTime());
             holder.test.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.colorNavIcon));
+            holder.logStatus.setTextColor(ContextCompat.getColor(mCtx,R.color.colorLightGreen));
+        }else if("Leave".equalsIgnoreCase(log.getLogStatus())){
+            holder.enterDate.setText("Leave On "+log.getExitDate()+" "+log.getExitTime());
+            holder.logStatus.setTextColor(ContextCompat.getColor(mCtx,R.color.red));
         }
 
         holder.test.setOnClickListener(new View.OnClickListener() {

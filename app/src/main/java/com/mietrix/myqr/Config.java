@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 public class Config {
 

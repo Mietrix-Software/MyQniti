@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -46,6 +47,8 @@ public class UserLocationDetails extends AppCompatActivity {
     SimpleDateFormat sdf;
     Calendar currTime;
     String currentDate;
+    MediaPlayer mediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +102,17 @@ public class UserLocationDetails extends AppCompatActivity {
             loadPlaces();
             exit.setVisibility(View.GONE);
             enter.setVisibility(View.VISIBLE);
+            logstatustxt.setTextColor(getResources().getColor(R.color.colorDeepBlue));
 
         }else if ("Inside".equalsIgnoreCase(logStatus)){
             enter.setVisibility(View.GONE);
             exit.setVisibility(View.VISIBLE);
+            logstatustxt.setTextColor(getResources().getColor(R.color.colorLightGreen));
             loadPlaces();
         }else{
             enter.setVisibility(View.GONE);
             exit.setVisibility(View.GONE);
+            logstatustxt.setTextColor(getResources().getColor(R.color.red));
             loadPlaces();
         }
 
@@ -137,6 +143,9 @@ public class UserLocationDetails extends AppCompatActivity {
 
                                         if(response.contains("Success")){
 
+                                            mediaPlayer = MediaPlayer.create(UserLocationDetails.this, R.raw.checkin);
+                                            mediaPlayer.start();
+
                                             Toast.makeText(UserLocationDetails.this, "Successfully enter", Toast.LENGTH_LONG)
                                                     .show();
 
@@ -144,8 +153,6 @@ public class UserLocationDetails extends AppCompatActivity {
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             finish();
-
-
 
                                         }
                                         else if(response.contains("Exist")) {
@@ -265,6 +272,9 @@ public class UserLocationDetails extends AppCompatActivity {
 
                                                 if (response.contains("Success")) {
 
+                                                    mediaPlayer = MediaPlayer.create(UserLocationDetails.this, R.raw.checkout);
+                                                    mediaPlayer.start();
+
                                                     Toast.makeText(UserLocationDetails.this, "Successfully leaving. Thank you", Toast.LENGTH_LONG)
                                                             .show();
 
@@ -369,9 +379,9 @@ public class UserLocationDetails extends AppCompatActivity {
                                 placeAddress = user.getString("placeaddr");
                             }
 
-                            placenametxt.setText(placeName);
-                            placephonetxt.setText(placePhone);
-                            placeaddresstxt.setText(placeAddress);
+                            placenametxt.setText("Name   : "+placeName);
+                            placephonetxt.setText("Phone   : "+placePhone);
+                            placeaddresstxt.setText("Address: "+placeAddress);
 
                             loading.dismiss();
                         } catch (JSONException e) {
@@ -400,5 +410,11 @@ public class UserLocationDetails extends AppCompatActivity {
         //adding our stringrequest to queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+    public void onBackPressed() {
+        Intent i = new Intent(UserLocationDetails.this, PastVisited.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
     }
 }

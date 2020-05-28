@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import android.content.Context;
 import android.graphics.Typeface;

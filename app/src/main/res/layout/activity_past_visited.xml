@@ -11,17 +11,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bluegrad"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@drawable/adaptergreystroke"
             android:paddingBottom="10dp"
-            android:text="Past Visited"
+            android:text="Past Visited Area"
             android:textAlignment="center"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
             android:textSize="30dp" />
 
     </LinearLayout>
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:src="@drawable/ic_employee" />
+        android:src="@drawable/ic_no_past_visit" />
 
     <TextView
         android:id="@+id/textViewGone"
@@ -44,7 +44,7 @@
         android:textStyle="bold|italic"
         android:visibility="gone"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="No past interview available" />
+        android:text="No past visited area" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"

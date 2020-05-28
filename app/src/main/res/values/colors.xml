@@ -20,4 +20,10 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorMustard">#e1ad01</color>
+    <color name="colorLightBlue">#26D0CE</color>
+    <color name="colorDeepBlue">#1A2980</color>
+    <color name="colorLightGreen">#33cc00</color>
+
+
+
 </resources>

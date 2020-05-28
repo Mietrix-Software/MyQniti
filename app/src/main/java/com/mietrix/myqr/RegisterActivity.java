@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        getWindow().setBackgroundDrawableResource(R.mipmap.bg2);
 
         register = findViewById(R.id.registerBtn);
         name = findViewById(R.id.enName);
@@ -90,6 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(i);
                                 finish();
+
                             } else if (response.equalsIgnoreCase("Exist")) {
 
                                 Toast.makeText(RegisterActivity.this, "Email already exist", Toast.LENGTH_LONG)
@@ -137,5 +138,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void onBackPressed() {
+        Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
     }
 }

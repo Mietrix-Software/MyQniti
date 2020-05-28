@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat sdf;
     Calendar currTime;
     String currentDate;
+    AudioManager audioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,17 @@ public class MainActivity extends AppCompatActivity {
         currTime = Calendar.getInstance();
         sdf = new SimpleDateFormat("hh:mm:ss a");
         currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+/*
+        if(EasyPermissions.hasPermissions(MainActivity.this, Manifest.permission.ACCESS_NOTIFICATION_POLICY)){
 
+            audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+// changing to silent mode
+            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
+        }else{
+            EasyPermissions.requestPermissions(MainActivity.this, "No Permission", 11, Manifest.permission.ACCESS_NOTIFICATION_POLICY);
+        }
+*/
         pastVisited.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, PastVisited.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -79,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Profile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -184,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(MainActivity.this, UserLocationDetails.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+                                finish();
                             }
                     } catch (Settings.SettingNotFoundException e) {
                             e.printStackTrace();}
@@ -231,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, UserLocationDetails.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            finish();
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -259,5 +275,12 @@ public class MainActivity extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
         }
-
+    public void onBackPressed() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
     }

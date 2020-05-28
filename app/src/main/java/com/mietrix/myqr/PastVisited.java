@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -175,7 +174,12 @@ public class PastVisited extends AppCompatActivity implements PastVisitedAdapter
         Intent i = new Intent(PastVisited.this, UserLocationDetails.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
-        //finish();
+        finish();
     }
-
+    public void onBackPressed() {
+        Intent i = new Intent(PastVisited.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
+    }
 }

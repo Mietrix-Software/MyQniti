@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -179,5 +179,10 @@ public class ChangePassword extends AppCompatActivity {
                 }
             }
         });
+    }    public void onBackPressed() {
+        Intent i = new Intent(ChangePassword.this, Profile.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
     }
 }

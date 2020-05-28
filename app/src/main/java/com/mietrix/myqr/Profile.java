@@ -1,4 +1,4 @@
-package com.mietrix.myqniti;
+package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -119,7 +119,7 @@ public class Profile extends AppCompatActivity {
                 Intent intent = new Intent(Profile.this, ChangePassword.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-
+                finish();
             }
         });
 
@@ -183,10 +183,12 @@ public class Profile extends AppCompatActivity {
                                                 // Saving values to editor
                                                 editor.commit();
 
-                                                Intent intent = new Intent(Profile.this, MainActivity.class);
+                                               /* Intent intent = new Intent(Profile.this, MainActivity.class);
                                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                 startActivity(intent);
-                                                finish();
+                                                finish();*/
+
+                                               recreate();
 
 
                                             } else {
@@ -256,5 +258,11 @@ public class Profile extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void onBackPressed() {
+        Intent i = new Intent(Profile.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
     }
 }

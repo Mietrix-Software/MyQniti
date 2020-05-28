@@ -5,15 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradientbg45d">
+    android:background="@mipmap/bg4">
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
-        android:background="@drawable/redgrad"
+        android:background="@drawable/bluegrad"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="" />
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Profile" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -143,9 +147,9 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/buttoncornerred"
+            android:background="@drawable/buttoncornerblueline"
             android:text="LOG OUT"
-            android:textColor="#ffffff" />
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
 </LinearLayout>

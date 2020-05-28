@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
-        android:background="@drawable/redgrad"
+        android:background="@drawable/bluegrad"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="" />
@@ -96,6 +96,7 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:layout_marginTop="5dp"
                             android:text="Log Status"
                             android:textStyle="bold" />
@@ -103,6 +104,8 @@
                         <TextView
                             android:id="@+id/logStatus"
                             android:layout_width="match_parent"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:layout_height="wrap_content"
                             android:text="TextView" />
 
@@ -196,7 +199,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Monday"
+                        android:text="Place Name"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
@@ -204,7 +207,8 @@
                         android:id="@+id/placephone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lunch"
+                        android:text="Phone"
+                        android:layout_marginTop="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
@@ -212,7 +216,8 @@
                         android:id="@+id/placeaddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="10 AM"
+                        android:text="Address"
+                        android:layout_marginTop="5dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 </LinearLayout>
@@ -230,11 +235,11 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/buttoncornerredline"
+                        android:background="@drawable/buttoncornerblueline"
                         android:text="Leaving"
-                        android:textColor="#B30000" />
+                        android:textColor="@color/colorDeepBlue" />
 
                     <Button
                         android:id="@+id/enterBtn"
@@ -244,7 +249,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/buttoncornerredgrad2"
+                        android:background="@drawable/buttoncornerbluegrad"
                         android:text="Entering"
                         android:textColor="#ffffff" />
 

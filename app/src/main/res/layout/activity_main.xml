@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@mipmap/bg3"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity" >
@@ -16,11 +16,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
             android:textAlignment="center"
-            android:background="@drawable/adaptergreystroke"
-            android:textSize="50dp"
-            android:layout_marginTop="10dp"
+            android:background="@drawable/bluegrad"
+            android:textSize="40dp"
             android:paddingBottom="10dp"
             android:text="Main" />
 
@@ -45,13 +44,14 @@
                     android:background="@drawable/textboxcornergrey"
                     android:padding="10dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_seterusnya" />
+                    android:src="@drawable/ic_qr_code_scan" />
 
                 <TextView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textStyle="bold"
                     android:text="Scan QR Code"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -71,13 +71,14 @@
                     android:background="@drawable/textboxcornergrey"
                     android:padding="10dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_lepas" />
+                    android:src="@drawable/ic_past_visit" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Past Visited Place"
+                    android:textStyle="bold"
+                    android:text="Past Visited Area"
                     android:textAlignment="center" />
             </LinearLayout>
         </LinearLayout>
@@ -135,6 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textStyle="bold"
                     android:textAlignment="center"
                     android:text="Profile" />
             </LinearLayout>
