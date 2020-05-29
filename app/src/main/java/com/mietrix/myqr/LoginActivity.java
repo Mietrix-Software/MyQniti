@@ -2,17 +2,23 @@ package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -48,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     String phoneID;
     String emailID;
     String addressID;
+    ImageButton about;
 
 
     @Override
@@ -60,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
         inputICnum = findViewById(R.id.icnum);
         inputPassword = findViewById(R.id.password);
-        
+        about = findViewById(R.id.aboutBtn);
 
         Button btnLogin = findViewById(R.id.btnLogin);
         Button toRegister = findViewById(R.id.btntoRegister);
@@ -68,7 +75,47 @@ public class LoginActivity extends AppCompatActivity {
         //Button tos =(Button)findViewById(R.id.tos);
         // ImageButton exit =(ImageButton)findViewById(R.id.exit);
 
-       
+       about.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+
+               AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+               alertDialogBuilder.setMessage(Html.fromHtml("<b>MyQR</b> is a mobile application used to help track movement of individuals " +
+                       "within a specific location conveniently without filling up hard copy forms or online forms " +
+                       "during Covid-19 pandemic.  For more information, please contact us.<br>" +
+                       "<br>" +
+                       "<b>MyQR Admin</b><br>" +
+                       "<b>Email: shahrulazmi1972@gmail.com</b><br>" +
+                       "<b>Phone: 0134808554</b>"));
+
+               final Dialog dialog = new Dialog(LoginActivity.this);
+
+               alertDialogBuilder.setPositiveButton("I Understand",
+                       new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface arg0, int arg1) {
+                               dialog.setCanceledOnTouchOutside(true);
+                               dialog.cancel();
+
+                           }
+
+                       });
+
+
+               alertDialogBuilder.setOnCancelListener(
+                       new DialogInterface.OnCancelListener() {
+                           @Override
+                           public void onCancel(DialogInterface dialog) {
+                            dialog.cancel();
+                           }
+                       }
+               );
+
+               //Showing the alert dialog
+               AlertDialog alertDialog = alertDialogBuilder.create();
+               alertDialog.show();
+           }
+       });
 
         toRegister.setOnClickListener(new View.OnClickListener() {
             @Override
