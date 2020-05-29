@@ -41,7 +41,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/textboxcornergrey"
+                    android:background="@drawable/buttoncornerblueline"
                     android:padding="10dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_qr_code_scan" />
@@ -68,7 +68,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/textboxcornergrey"
+                    android:background="@drawable/buttoncornerblueline"
                     android:padding="10dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_past_visit" />
@@ -129,7 +129,7 @@
                     android:layout_gravity="center"
                     android:layout_height="150dp"
                     android:scaleType="centerInside"
-                    android:background="@drawable/textboxcornergrey"
+                    android:background="@drawable/buttoncornerblueline"
                     android:src="@drawable/ic_profile" />
 
                 <TextView
