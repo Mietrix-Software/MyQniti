@@ -52,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textStyle="bold"
+                    android:textSize="14dp"
                     android:text="Scan QR Code"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -78,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textStyle="bold"
+                    android:textSize="14dp"
                     android:text="Past Visited Area"
                     android:textAlignment="center" />
             </LinearLayout>
@@ -136,9 +138,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textStyle="bold"
+                    android:text="Profile"
+                    android:textSize="14dp"
                     android:textAlignment="center"
-                    android:text="Profile" />
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 

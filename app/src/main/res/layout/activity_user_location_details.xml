@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="Visiting Details"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="22dp"
             android:textStyle="bold" />
 
         <ScrollView
@@ -56,10 +56,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="User Name"
+                            android:textSize="14dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/userNametxt"
+                            android:textSize="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="buyerName" />
@@ -69,11 +71,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:textSize="14dp"
                             android:text="Phone Number"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/phoneNumtxt"
+                            android:textSize="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="TextView" />
@@ -83,11 +87,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:textSize="14dp"
                             android:text="Enter Date and Time"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/enterdateNtime"
+                            android:textSize="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="TextView" />
@@ -96,6 +102,7 @@
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textSize="18dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:layout_marginTop="5dp"
                             android:text="Log Status"
@@ -105,7 +112,7 @@
                             android:id="@+id/logStatus"
                             android:layout_width="match_parent"
                             android:textStyle="bold"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textSize="18dp"
                             android:layout_height="wrap_content"
                             android:text="TextView" />
 
@@ -139,10 +146,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="User Email"
+                            android:textSize="14dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/userEmailtxt"
+                            android:textSize="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="TextView" />
@@ -153,10 +162,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:text="Log ID"
+                            android:textSize="14dp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/logIDtxt"
+                            android:textSize="14dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="New Entry" />
@@ -166,12 +177,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:textSize="14dp"
                             android:text="Exit Date and Time"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/exitdatentime"
                             android:layout_width="match_parent"
+                            android:textSize="14dp"
                             android:layout_height="wrap_content"
                             android:text="TextView" />
 
@@ -189,7 +202,7 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textSize="18dp"
                         android:text="Place Information"
                         android:textStyle="bold" />
 
@@ -200,7 +213,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:text="Place Name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textSize="18dp" />
 
                     <TextView
 
@@ -209,7 +222,7 @@
                         android:layout_height="wrap_content"
                         android:text="Phone"
                         android:layout_marginTop="5dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textSize="18dp" />
 
                     <TextView
 
@@ -218,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:text="Address"
                         android:layout_marginTop="5dp"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                        android:textSize="18dp" />
 
                 </LinearLayout>
                 <LinearLayout
@@ -237,6 +250,7 @@
                         android:layout_weight="1"
                         android:visibility="visible"
                         android:layout_marginTop="20dp"
+                        android:textSize="14dp"
                         android:background="@drawable/buttoncornerblueline"
                         android:text="Leaving"
                         android:textColor="@color/colorDeepBlue" />
@@ -249,6 +263,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="20dp"
                         android:layout_weight="1"
+                        android:textSize="14dp"
                         android:background="@drawable/buttoncornerbluegrad"
                         android:text="Entering"
                         android:textColor="#ffffff" />
