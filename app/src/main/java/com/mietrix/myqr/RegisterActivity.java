@@ -2,11 +2,17 @@ package com.mietrix.myqr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,8 +31,9 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    CheckBox term;
     Button register;
-    EditText name, phone, email, address, pass, confirmPass;
+    EditText name, phone, email, pass, confirmPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +41,131 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         getWindow().setBackgroundDrawableResource(R.mipmap.bg2);
 
+        term =  findViewById(R.id.term);
         register = findViewById(R.id.registerBtn);
         name = findViewById(R.id.enName);
-        address = findViewById(R.id.enAddress);
+        //address = findViewById(R.id.enAddress);
         phone = findViewById(R.id.enPhone);
         email = findViewById(R.id.enEmail);
         pass = findViewById(R.id.enPass);
         confirmPass = findViewById(R.id.enConfirmPass);
+
+        term.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if (buttonView.isChecked()) {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegisterActivity.this);
+                    alertDialogBuilder.setMessage(Html.fromHtml("The collection of your details is required under the Prevention and Control of Infectious Diseases Act 1988 [Act 342] and it is hereby compulsory.<br><br>" +
+                            "Email information is required for login purposes and it is unique to each person registered with this application. This information will not be used for marketing and product promotion purposes.<br><br>" +
+                            "Failure to provide such information, we may not be able to offer our services to you."));
+                    final Dialog dialog = new Dialog(RegisterActivity.this);
+
+                    alertDialogBuilder.setPositiveButton("I agree",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    dialog.setCanceledOnTouchOutside(true);
+                                    register.setVisibility(View.VISIBLE);
+                                    dialog.cancel();
+                                    term.setText("I accept the Terms and Conditions");
+                                }
+                            });
+
+                    alertDialogBuilder.setNegativeButton("I Disagree",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    dialog.setCanceledOnTouchOutside(true);
+                                    term.setChecked(false);
+                                    register.setVisibility(View.INVISIBLE);
+                                    dialog.cancel();
+                                }
+                            });
+                    alertDialogBuilder.setOnCancelListener(
+                            new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    term.setChecked(false);
+                                    register.setVisibility(View.INVISIBLE);
+                                    dialog.cancel();
+
+                                }
+                            }
+                    );
+
+                    //Showing the alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
+                } else {
+                    Toast.makeText(RegisterActivity.this,
+                            "You must accept terms and conditions to register", Toast.LENGTH_LONG).show();
+                    register.setVisibility(View.INVISIBLE);
+                    term.setText("Click here to read terms and conditions before proceeding");
+
+                }
+                }
+            }
+        );
+
+       /* term.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //is chkIos checked?
+                if (((CheckBox) v).isChecked()) {
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegisterActivity.this);
+                    alertDialogBuilder.setMessage(Html.fromHtml("The collection of your details is required under the Prevention and Control of Infectious Diseases Act 1988 [Act 342] and it is hereby compulsory.<br><br>" +
+                            "Email information is required for login purposes and it is unique to each person registered with this application. This information will not be used for marketing and product promotion purposes.<br><br>" +
+                            "Failure to provide such information, we may not be able to offer our services to you."));
+                    final Dialog dialog = new Dialog(RegisterActivity.this);
+
+                    alertDialogBuilder.setPositiveButton("I agree",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    dialog.setCanceledOnTouchOutside(true);
+                                    register.setVisibility(View.VISIBLE);
+                                }
+                            });
+
+                    alertDialogBuilder.setNegativeButton("I Disagree",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    dialog.setCanceledOnTouchOutside(true);
+                                    term.setChecked(false);
+                                    Toast.makeText(RegisterActivity.this,
+                                            "You must accept terms and conditions to register", Toast.LENGTH_LONG).show();
+                                    register.setVisibility(View.INVISIBLE);
+                                }
+                            });
+                    alertDialogBuilder.setOnCancelListener(
+                            new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    term.setChecked(false);
+                                    Toast.makeText(RegisterActivity.this,
+                                            "You must accept terms and conditions to register", Toast.LENGTH_LONG).show();
+                                    register.setVisibility(View.INVISIBLE);
+
+                                }
+                            }
+                    );
+
+                    //Showing the alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
+                } else {
+                    Toast.makeText(RegisterActivity.this,
+                            "You must accept terms and conditions to register", Toast.LENGTH_LONG).show();
+                    register.setVisibility(View.INVISIBLE);
+
+                }}});*/
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
                 final String nm = name.getText().toString().trim();
                 final String em = email.getText().toString().trim();
                 final String ph = phone.getText().toString().trim();
-                final String adr = address.getText().toString().trim();
+                //final String adr = address.getText().toString().trim();
                 final String pss = pass.getText().toString().trim();
                 String conpss = confirmPass.getText().toString().trim();
 
@@ -62,10 +187,10 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (ph.length() < 10) {
                     Toast.makeText(getApplicationContext(),
                             "Please enter proper phone number", Toast.LENGTH_LONG).show();
-                } else if (adr.length() < 10) {
+                } /*else if (adr.length() < 10) {
                     Toast.makeText(getApplicationContext(),
                             "Please enter proper address", Toast.LENGTH_LONG).show();
-                } else if (pss.length() < 8) {
+                } */else if (pss.length() < 8) {
                     Toast.makeText(getApplicationContext(),
                             "Please enter minimum 8 character for Password", Toast.LENGTH_LONG).show();
                 } else if (!pss.equals(conpss)) {
@@ -121,7 +246,7 @@ public class RegisterActivity extends AppCompatActivity {
                             params.put("userphone", ph);
                             params.put("useremail", em);
                             params.put("userpass", pss);
-                            params.put("useraddr", adr);
+                            //params.put("useraddr", adr);
                             return params;
                         }
 
@@ -136,6 +261,7 @@ public class RegisterActivity extends AppCompatActivity {
                     requestQueue.add(stringRequest);
 
                 }
+
             }
         });
     }

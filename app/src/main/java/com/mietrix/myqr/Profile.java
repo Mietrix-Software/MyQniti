@@ -31,7 +31,7 @@ import java.util.Map;
 
 public class Profile extends AppCompatActivity {
 
-    String userID,name,phone,email,address;
+    String userID,name,phone,email;
     TextView showname;
     EditText chgphone,chgemail,chgaddr;
     Button logout,toChgPass,editProfile;
@@ -47,12 +47,12 @@ public class Profile extends AppCompatActivity {
         name = sharedPreferences.getString(Config.NAME_ID2, "0");
         phone= sharedPreferences.getString(Config.PHONE_ID2, "0");
         email = sharedPreferences.getString(Config.EMAIL_ID2, "0");
-        address = sharedPreferences.getString(Config.ADDRESS_ID2, "0");
+        //address = sharedPreferences.getString(Config.ADDRESS_ID2, "0");
 
         showname = findViewById(R.id.username);
         chgphone = findViewById(R.id.chgphone);
         chgemail = findViewById(R.id.chgemail);
-        chgaddr = findViewById(R.id.chgaddress);
+        //chgaddr = findViewById(R.id.chgaddress);
         logout = findViewById(R.id.logoutBtn);
         toChgPass = findViewById(R.id.chgpassBtn);
         editProfile = findViewById(R.id.saveBtn);
@@ -60,7 +60,7 @@ public class Profile extends AppCompatActivity {
         showname.setText(name);
         chgphone.setText(phone);
         chgemail.setText(email);
-        chgaddr.setText(address);
+        //chgaddr.setText(address);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +129,7 @@ public class Profile extends AppCompatActivity {
 
                 phone = chgphone.getText().toString().trim();
                 email = chgemail.getText().toString().trim();
-                address = chgaddr.getText().toString().trim();
+                //address = chgaddr.getText().toString().trim();
 
                 if (email.length() < 8) {
                     Toast.makeText(getApplicationContext(), "Please enter proper email address",
@@ -137,10 +137,10 @@ public class Profile extends AppCompatActivity {
                 } else if (phone.length() < 10) {
                     Toast.makeText(getApplicationContext(),
                             "Please enter proper phone number", Toast.LENGTH_LONG).show();
-                } else if (address.length() < 10) {
+                } /*else if (address.length() < 10) {
                     Toast.makeText(getApplicationContext(),
                             "Please enter proper address", Toast.LENGTH_LONG).show();
-                } else {
+                } */else {
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Profile.this);
                     alertDialogBuilder.setTitle("Confirmation");
@@ -178,7 +178,7 @@ public class Profile extends AppCompatActivity {
                                                 // Adding values to editor
                                                 editor.putString(Config.PHONE_ID2, phone);
                                                 editor.putString(Config.EMAIL_ID2, email);
-                                                editor.putString(Config.ADDRESS_ID2, address);
+                                                //editor.putString(Config.ADDRESS_ID2, address);
 
                                                 // Saving values to editor
                                                 editor.commit();
@@ -216,7 +216,7 @@ public class Profile extends AppCompatActivity {
                                             params.put("userID", userID);
                                             params.put("userphone", phone);
                                             params.put("useremail", email);
-                                            params.put("useraddr", address);
+                                           // params.put("useraddr", address);
                                             return params;
                                         }
 

@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     String nameID;
     String phoneID;
     String emailID;
-    String addressID;
+    //String addressID;
     ImageButton about;
 
 
@@ -285,7 +285,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //adding the product to product list
                                 userID = user.getString("userID");
                                 nameID = user.getString("username");
-                                addressID = user.getString("useraddr");
+                                //addressID = user.getString("useraddr");
                                 phoneID = user.getString("userphone");
                                 emailID = user.getString("useremail");
                             }
@@ -303,7 +303,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString(Config.NAME_ID2, nameID);
                             editor.putString(Config.PHONE_ID2, phoneID);
                             editor.putString(Config.EMAIL_ID2, emailID);
-                            editor.putString(Config.ADDRESS_ID2, addressID);
+                            //editor.putString(Config.ADDRESS_ID2, addressID);
 
 
                             // Saving values to editor
