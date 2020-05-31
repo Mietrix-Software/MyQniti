@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         adjustFontScale(getResources().getConfiguration());
         setContentView(R.layout.activity_login);
+        getWindow().setBackgroundDrawableResource(R.mipmap.bg1);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
