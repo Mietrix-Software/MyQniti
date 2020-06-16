@@ -1,4 +1,4 @@
-package com.mietrix.myqr;
+package com.mietrix.myqruum;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -147,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
 
                         Toast.makeText(MainActivity.this,
                                 "QR Code not exist",
+                                Toast.LENGTH_LONG).show();
+
+                    }else if("maximum".equalsIgnoreCase(response)){
+
+                        Toast.makeText(MainActivity.this,
+                                "Maximum user inside. Please wait for another user to checkout before trying again",
                                 Toast.LENGTH_LONG).show();
 
                     }else if("New".equalsIgnoreCase(response)){

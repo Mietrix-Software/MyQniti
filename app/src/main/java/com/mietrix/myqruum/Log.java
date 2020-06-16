@@ -1,4 +1,4 @@
-package com.mietrix.myqr;
+package com.mietrix.myqruum;
 
 public class Log {
 

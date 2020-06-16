@@ -1,4 +1,4 @@
-package com.mietrix.myqr;
+package com.mietrix.myqruum;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

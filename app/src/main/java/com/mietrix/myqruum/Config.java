@@ -1,10 +1,10 @@
-package com.mietrix.myqr;
+package com.mietrix.myqruum;
 
 public class Config {
 
     public static final String SHARED_PREF_NAME = "myQniti";
 
-    public static final String URL_API = "https://myqniti.qniti.com/apps/";
+    public static final String URL_API = "https://myqr.qniti.com/apps/";
 
 
     public static final String SCAN_DATE = "scanDate";
