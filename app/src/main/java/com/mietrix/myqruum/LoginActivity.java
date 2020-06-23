@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btnLogin = findViewById(R.id.btnLogin);
         Button toRegister = findViewById(R.id.btntoRegister);
+        Button toForgot = findViewById(R.id.btntoForget);
         // Button btnLinkToRegister =(Button)findViewById(R.id.btnLinkToRegisterScreen);
         //Button tos =(Button)findViewById(R.id.tos);
         // ImageButton exit =(ImageButton)findViewById(R.id.exit);
@@ -122,6 +123,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+        toForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(LoginActivity.this, ForgetPassword.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
