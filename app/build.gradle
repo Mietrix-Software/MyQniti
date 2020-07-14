@@ -8,8 +8,8 @@ android {
         applicationId "com.mietrix.myqruum"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 7
-        versionName "1.2_Release"
+        versionCode 8
+        versionName "1.3_Release"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

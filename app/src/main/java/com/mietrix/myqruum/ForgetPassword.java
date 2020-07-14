@@ -77,7 +77,13 @@ public class ForgetPassword extends AppCompatActivity {
 
                                             loading.dismiss();
 
-                                            if (response.contains("Message sent")) {
+                                            if (response.contains("Not Exist")) {
+
+                                                Toast.makeText(ForgetPassword.this,
+                                                        "Email not exist",
+                                                        Toast.LENGTH_LONG).show();
+
+                                            }else if (response.contains("Message sent")) {
 
                                                 Toast.makeText(ForgetPassword.this, "Successfully sent. Please check your email", Toast.LENGTH_LONG)
                                                         .show();
@@ -89,7 +95,7 @@ public class ForgetPassword extends AppCompatActivity {
 
                                             } else {
 
-                                                Toast.makeText(ForgetPassword.this, "Sorry. Please try again", Toast.LENGTH_LONG)
+                                                Toast.makeText(ForgetPassword.this, "Error. Please try again later", Toast.LENGTH_LONG)
                                                         .show();
                                             }
                                         }
