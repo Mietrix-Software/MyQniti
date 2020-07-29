@@ -122,7 +122,7 @@ public class UserLocationDetails extends AppCompatActivity {
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserLocationDetails.this);
                 alertDialogBuilder.setTitle("Confirmation");
-                alertDialogBuilder.setMessage("Do you want to enter the area");
+                alertDialogBuilder.setMessage("Do you want to enter the area?");
 
                 final Dialog dialog = new Dialog(UserLocationDetails.this);
 
