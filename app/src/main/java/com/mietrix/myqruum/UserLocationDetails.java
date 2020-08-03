@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class UserLocationDetails extends AppCompatActivity {
     Calendar currTime;
     String currentDate;
     MediaPlayer mediaPlayer;
+    ImageView tick;
 
 
     @Override
@@ -71,6 +73,7 @@ public class UserLocationDetails extends AppCompatActivity {
         placeaddresstxt = findViewById(R.id.placeaddress);
         enter = findViewById(R.id.enterBtn);
         exit = findViewById(R.id.exitBtn);
+        tick = findViewById(R.id.tick);
 
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         userID = sharedPreferences.getString(Config.USER_ID2, "0");
@@ -102,16 +105,19 @@ public class UserLocationDetails extends AppCompatActivity {
             loadPlaces();
             exit.setVisibility(View.GONE);
             enter.setVisibility(View.VISIBLE);
+            tick.setVisibility(View.GONE);
             logstatustxt.setTextColor(getResources().getColor(R.color.colorDeepBlue));
 
         }else if ("Inside".equalsIgnoreCase(logStatus)){
             enter.setVisibility(View.GONE);
             exit.setVisibility(View.VISIBLE);
+            tick.setVisibility(View.VISIBLE);
             logstatustxt.setTextColor(getResources().getColor(R.color.colorLightGreen));
             loadPlaces();
         }else{
             enter.setVisibility(View.GONE);
             exit.setVisibility(View.GONE);
+            tick.setVisibility(View.GONE);
             logstatustxt.setTextColor(getResources().getColor(R.color.red));
             loadPlaces();
         }
@@ -120,7 +126,7 @@ public class UserLocationDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserLocationDetails.this);
+               /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserLocationDetails.this);
                 alertDialogBuilder.setTitle("Confirmation");
                 alertDialogBuilder.setMessage("Do you want to enter the area?");
 
@@ -131,7 +137,7 @@ public class UserLocationDetails extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
                                 dialog.setCanceledOnTouchOutside(true);
-
+*/
                                 final ProgressDialog loading = ProgressDialog.show(UserLocationDetails.this,"Please Wait","Contacting Server",false,false);
 
                                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -198,7 +204,7 @@ public class UserLocationDetails extends AppCompatActivity {
                             }
 
                         });
-
+/*
                 alertDialogBuilder.setNegativeButton("NO",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -221,7 +227,7 @@ public class UserLocationDetails extends AppCompatActivity {
                 alertDialog.show();
 
             }
-        });
+        }); */
 
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
