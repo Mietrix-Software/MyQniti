@@ -50,7 +50,7 @@ public class PastVisitedAdapter extends RecyclerView.Adapter<PastVisitedAdapter.
             holder.test.setBackgroundColor(ContextCompat.getColor(mCtx, R.color.colorNavIcon));
             holder.logStatus.setTextColor(ContextCompat.getColor(mCtx,R.color.colorLightGreen));
         }else if("Visited".equalsIgnoreCase(log.getLogStatus())){
-            holder.enterDate.setText("Visited On "+log.getExitDate()+" "+log.getExitTime());
+            holder.enterDate.setText("Visited On "+log.getEnterDate()+" "+log.getEnterTime());
             holder.logStatus.setTextColor(ContextCompat.getColor(mCtx,R.color.red));
         }
 

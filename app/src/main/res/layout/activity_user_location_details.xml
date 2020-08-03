@@ -188,13 +188,23 @@
                             android:layout_height="wrap_content"
                             android:text="TextView" />
 
+                        <ImageView
+                            android:id="@+id/tick"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_gravity="center"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_tick_grad" />
+
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textboxcornergrey"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:padding="10dp"
                     android:orientation="vertical">
 
@@ -252,7 +262,7 @@
                         android:layout_marginTop="20dp"
                         android:textSize="14dp"
                         android:background="@drawable/buttoncornerblueline"
-                        android:text="Leaving"
+                        android:text="Click here to check-out"
                         android:textColor="@color/colorDeepBlue" />
 
                     <Button
@@ -265,7 +275,7 @@
                         android:layout_weight="1"
                         android:textSize="14dp"
                         android:background="@drawable/buttoncornerbluegrad"
-                        android:text="Entering"
+                        android:text="Click here to Check-IN"
                         android:textColor="#ffffff" />
 
                 </LinearLayout>
