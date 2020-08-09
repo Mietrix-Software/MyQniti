@@ -13,9 +13,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     String emailID;
     //String addressID;
     ImageButton about;
+    CheckBox dontShowAgain;
 
 
     @Override
@@ -62,8 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         adjustFontScale(getResources().getConfiguration());
         setContentView(R.layout.activity_login);
         getWindow().setBackgroundDrawableResource(R.mipmap.bg1);
-
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
         inputICnum = findViewById(R.id.icnum);
         inputPassword = findViewById(R.id.password);
@@ -75,6 +76,43 @@ public class LoginActivity extends AppCompatActivity {
         // Button btnLinkToRegister =(Button)findViewById(R.id.btnLinkToRegisterScreen);
         //Button tos =(Button)findViewById(R.id.tos);
         // ImageButton exit =(ImageButton)findViewById(R.id.exit);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        LayoutInflater adbInflater = LayoutInflater.from(this);
+        View eulaLayout = adbInflater.inflate(R.layout.create_checkbox, null);
+        SharedPreferences settings = getSharedPreferences(Config.SHARED_PREF_NAME, 0);
+        String skipMessage = settings.getString("skipMessage", "NOT checked");
+
+        dontShowAgain = (CheckBox) eulaLayout.findViewById(R.id.skip);
+        adb.setView(eulaLayout);
+        adb.setCancelable(false);
+        adb.setMessage(Html.fromHtml("For <b>NEW</b> user, please create a <b>MyQR UUM</b> account before login" +
+                "<br><br>" +
+                "<b>Your current UUM ID and password will not work with this application</b>"));
+
+        adb.setPositiveButton("I Understand", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                String checkBoxResult = "NOT checked";
+
+                if (dontShowAgain.isChecked()) {
+                    checkBoxResult = "checked";
+                }
+
+                SharedPreferences settings = getSharedPreferences(Config.SHARED_PREF_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+
+                editor.putString("skipMessage", checkBoxResult);
+                editor.commit();
+
+                // Do what you want to do on "OK" action
+
+                return;
+            }
+        });
+
+        if (!skipMessage.equals("checked")) {
+            adb.show();
+        }
 
        about.setOnClickListener(new View.OnClickListener() {
            @Override
