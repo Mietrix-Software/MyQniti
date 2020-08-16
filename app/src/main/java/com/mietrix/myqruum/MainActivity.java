@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     Calendar currTime;
     String currentDate;
     AudioManager audioManager;
+    String subScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,14 +128,19 @@ public class MainActivity extends AppCompatActivity {
                 scanID.trim();
 
                 checkLog();
-
-               // Toast.makeText(MainActivity.this, scanID, Toast.LENGTH_LONG).show();
             }
         }
     }
 
     public void checkLog(){
             final ProgressDialog loading = ProgressDialog.show(this,"Please Wait","Contacting Server",false,false);
+
+            if (scanID.contains("https://myqr.qniti.com/webregister.php?placeID=")) {
+
+            scanID =scanID.substring(scanID.indexOf("placeID=") + 8);
+
+            }
+            //Toast.makeText(MainActivity.this, scanID, Toast.LENGTH_LONG).show();
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     Config.URL_API+"checklog.php?userID="+userID+"&placeID="+scanID, new Response.Listener<String>() {
