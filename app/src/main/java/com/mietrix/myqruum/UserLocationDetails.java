@@ -104,9 +104,10 @@ public class UserLocationDetails extends AppCompatActivity {
         }else if ("New".equalsIgnoreCase(logStatus)){
             loadPlaces();
             exit.setVisibility(View.GONE);
-            enter.setVisibility(View.VISIBLE);
+            enter.setVisibility(View.GONE);
             tick.setVisibility(View.GONE);
             logstatustxt.setTextColor(getResources().getColor(R.color.colorDeepBlue));
+            enterPlaces();
 
         }else if ("Inside".equalsIgnoreCase(logStatus)){
             enter.setVisibility(View.GONE);
@@ -122,9 +123,9 @@ public class UserLocationDetails extends AppCompatActivity {
             loadPlaces();
         }
 
-        enter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+       // enter.setOnClickListener(new View.OnClickListener() {
+           // @Override
+           // public void onClick(View v) {
 
                /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(UserLocationDetails.this);
                 alertDialogBuilder.setTitle("Confirmation");
@@ -138,7 +139,7 @@ public class UserLocationDetails extends AppCompatActivity {
                             public void onClick(DialogInterface arg0, int arg1) {
                                 dialog.setCanceledOnTouchOutside(true);
 */
-                                final ProgressDialog loading = ProgressDialog.show(UserLocationDetails.this,"Please Wait","Contacting Server",false,false);
+                              /*  final ProgressDialog loading = ProgressDialog.show(UserLocationDetails.this,"Please Wait","Contacting Server",false,false);
 
                                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
                                         Config.URL_API+"enterlog.php", new Response.Listener<String>() {
@@ -281,7 +282,7 @@ public class UserLocationDetails extends AppCompatActivity {
                                                     mediaPlayer = MediaPlayer.create(UserLocationDetails.this, R.raw.checkout);
                                                     mediaPlayer.start();
 
-                                                    Toast.makeText(UserLocationDetails.this, "Successfully leaving. Thank you", Toast.LENGTH_LONG)
+                                                    Toast.makeText(UserLocationDetails.this, "Successfully checking out. Thank you", Toast.LENGTH_LONG)
                                                             .show();
 
                                                     Intent intent = new Intent(UserLocationDetails.this, PastVisited.class);
@@ -358,7 +359,72 @@ public class UserLocationDetails extends AppCompatActivity {
                 }}
             });
     }
+    public void enterPlaces(){
 
+        final ProgressDialog loading = ProgressDialog.show(UserLocationDetails.this,"Please Wait","Contacting Server",false,false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                Config.URL_API+"enterlog.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                loading.dismiss();
+
+                if(response.contains("Success")){
+
+                    mediaPlayer = MediaPlayer.create(UserLocationDetails.this, R.raw.checkin);
+                    mediaPlayer.start();
+
+                    Toast.makeText(UserLocationDetails.this, "Successfully checking in", Toast.LENGTH_LONG)
+                            .show();
+
+                    Intent intent = new Intent(UserLocationDetails.this, PastVisited.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+
+                }
+                else if(response.contains("Exist")) {
+
+                    Toast.makeText(UserLocationDetails.this, "Sorry. You already enter the area.Please scan leave before entering again", Toast.LENGTH_LONG)
+                            .show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(UserLocationDetails.this,"No internet . Please check your connection",
+                            Toast.LENGTH_LONG).show();
+                }
+                else{
+
+                    Toast.makeText(UserLocationDetails.this, error.toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userID", userID);
+                params.put("placeID", placeID);
+                params.put("enterDate", enterDate);
+                params.put("enterTime", enterTime);
+                return params;
+            }
+
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                30000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+
+    }
 
 
     public void loadPlaces(){
